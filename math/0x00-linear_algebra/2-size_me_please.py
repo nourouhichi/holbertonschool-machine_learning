@@ -3,7 +3,7 @@
 
 def matrix_shape(matrix):
     """shape"""
-    if type(matrix[0]) is not list:
+    if not isinstance(matrix[0], list):
         return [len(matrix)]
     else:
         return [len(matrix)] + matrix_shape(matrix[0])
