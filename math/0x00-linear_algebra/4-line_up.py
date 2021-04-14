@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+module
+"""
+
+
 def add_arrays(arr1, arr2):
     """add"""
     if len(arr1) != len(arr2):
