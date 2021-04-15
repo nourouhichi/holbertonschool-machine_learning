@@ -4,5 +4,5 @@ import numpy as np
 
 
 def np_matmul(mat1, mat2):
-    """mult"""
+    """multi"""
     return np.matmul(mat1, mat2)
