@@ -4,6 +4,7 @@
 
 class Poisson:
     """poisson ditro class"""
+    e = 2.7182818285
 
     def __init__(self, data=None, lambtha=1.):
         """init  func"""
@@ -19,3 +20,11 @@ class Poisson:
             raise ValueError("data must contain multiple values")
         else:
             self.lambtha = float(sum(data) / len(data))
+
+    def pmf(self, k):
+        """calculating pmf"""
+        self.k = int(k)
+        factorial = 1
+        for i in range(1, k + 1):
+            factorial = factorial * i
+        return (self.lambtha ** k) * (self.e ** (- self.lambtha)) / factorial
