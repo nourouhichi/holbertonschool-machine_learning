@@ -4,6 +4,7 @@
 
 class Exponential:
     """expo ditro class"""
+
     def __init__(self, data=None, lambtha=1.):
         """init func"""
         self.data = data
@@ -17,4 +18,4 @@ class Exponential:
         elif len(data) < 2:
             raise ValueError("data must contain multiple values")
         else:
-            self.lambtha = float(sum(data) / len(data))
+            self.lambtha = float(len(data) / sum(data))
