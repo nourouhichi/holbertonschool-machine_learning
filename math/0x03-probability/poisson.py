@@ -28,6 +28,6 @@ class Poisson:
         if k < 0:
             return 0
         factorial = 1
-        for i in range(1, k + 1):
+        for i in range(2, k + 1):
             factorial = factorial * i
         return (self.lambtha ** k) * (self.e ** (- self.lambtha)) / factorial
