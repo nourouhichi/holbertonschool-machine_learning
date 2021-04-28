@@ -4,6 +4,8 @@
 
 class Normal:
     """normal distro"""
+    π = 3.1415926536
+    e = 2.7182818285
 
     def __init__(self, data=None, mean=0., stddev=1.):
         """ init fuc """
@@ -33,3 +35,9 @@ class Normal:
     def x_value(self, z):
         """calc x value of a z score"""
         return z * self.stddev + self.mean
+
+    def pdf(self, x):
+        """calc pdf of x"""
+        ct = 1 / (((2 * self.π) ** (1/2)) * self.stddev)
+        m = self.mean
+        return c * (self.e ** ((-(x - m) ** 2) / (2 * (self.stddev ** 2))))
