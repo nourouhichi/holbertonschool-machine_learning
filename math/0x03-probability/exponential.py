@@ -4,6 +4,7 @@
 
 class Exponential:
     """expo ditro class"""
+    e = 2.7182818285
 
     def __init__(self, data=None, lambtha=1.):
         """init func"""
@@ -19,3 +20,9 @@ class Exponential:
             raise ValueError("data must contain multiple values")
         else:
             self.lambtha = float(len(data) / sum(data))
+
+    def pdf(self, x):
+        """calc pdf"""
+        if x < 0:
+            return 0
+        return self.lambtha * (self.e ** (- self.lambtha * x))
