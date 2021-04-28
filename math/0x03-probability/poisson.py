@@ -23,7 +23,10 @@ class Poisson:
 
     def pmf(self, k):
         """calculating pmf"""
-        self.k = int(k)
+        if type(int) is not int:
+            self.k = int(k)
+        if k < 0:
+            return 0
         factorial = 1
         for i in range(1, k + 1):
             factorial = factorial * i
