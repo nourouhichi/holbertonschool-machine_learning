@@ -38,6 +38,6 @@ class Normal:
 
     def pdf(self, x):
         """calc pdf of x"""
-        ct = 1 / (((2 * self.π) ** (1/2)) * self.stddev)
+        c = 1 / (((2 * self.π) ** (1/2)) * self.stddev)
         m = self.mean
         return c * (self.e ** ((-(x - m) ** 2) / (2 * (self.stddev ** 2))))
