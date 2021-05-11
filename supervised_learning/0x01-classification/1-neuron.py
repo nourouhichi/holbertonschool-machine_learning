@@ -19,7 +19,7 @@ class Neuron:
         self.__A = 0
 
     @property
-    def w(self):
+    def W(self):
         """getter func"""
         return self.__W
 
