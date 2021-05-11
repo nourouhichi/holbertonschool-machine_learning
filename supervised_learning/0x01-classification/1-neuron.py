@@ -20,15 +20,12 @@ class Neuron:
 
     @property
     def W(self):
-        """getter func"""
         return self.__W
 
     @property
     def b(self):
-        """getter func"""
         return self.__b
 
     @property
-    """getter func"""
     def A(self):
         return self.__A
