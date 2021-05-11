@@ -34,3 +34,4 @@ class Neuron:
         """forward propagation func"""
         preact = np.dot(self.__W, X) + self.__b
         self.__A = 1 / (1 + np.exp(-preact))
+        return self.__A
