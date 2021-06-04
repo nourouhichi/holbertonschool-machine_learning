@@ -65,4 +65,3 @@ class NeuralNetwork:
         D = np.transpose(np.log(1.0000001 - A))
         c = np.squeeze(-1 / m * (np.dot(Y, np.log(B)) + np.dot(1 - Y, D)))
         return c
-
