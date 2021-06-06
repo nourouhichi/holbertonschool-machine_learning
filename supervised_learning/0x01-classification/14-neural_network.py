@@ -52,25 +52,24 @@ class NeuralNetwork:
 
     def forward_prop(self, X):
         """ for propagation function"""
-        z1 = np.dot(self.__W1, X) + self.__b1
+        z1 = np.matmul(self.__W1, X) + self.__b1
         self.__A1 = 1 / (1 + np.exp(- z1))
-        z2 = np.dot(self.__W2, self.__A1) + self.__b2
+        z2 = np.matmul(self.__W2, self.__A1) + self.__b2
         self.__A2 = 1 / (1 + np.exp(- z2))
         return self.__A1, self.__A2
 
     def cost(self, Y, A):
-        """ Calculate the cost of the model using logistic regression """
+        """loss function """
         m = Y.shape[1]
-        B = np.transpose(A)
-        D = np.transpose(np.log(1.0000001 - A))
-        c = np.squeeze(-1 / m * (np.dot(Y, np.log(B)) + np.dot(1 - Y, D)))
-        return c
+        z = 1.0000001 - A
+        L = (np.sum(Y * np.log(A) + (1 - Y) * np.log(z)))/m
+        return (-1 * L)
 
     def evaluate(self, X, Y):
         """evaluation function"""
         a = self.forward_prop(X)
-        prediction = np.where(a[1] >= 0.5, 1, 0)
-        return prediction, self.cost(Y, a[1])
+        prediction = np.where(self.__A2 < 0.5, 0, 1)
+        return prediction, self.cost(Y, self.__A2)
 
     def gradient_descent(self, X, Y, A1, A2, alpha=0.05):
         """gradient function"""
@@ -78,7 +77,7 @@ class NeuralNetwork:
         dz2 = A2 - Y
         dz1 = np.matmul(self.W2.T, dz2) * (A1 * (1 - A1))
         self.__W2 = self.__W2 - alpha * np.matmul(dz2, A1.T) / m
-        self.__b2 = self.__b2 - alpha * np.sum(dz2, axis=1) / m
+        self.__b2 = self.__b2 - alpha * np.sum(dz2, axis=1, keepdims=True) / m
         self.__W1 = self.__W1 - alpha * np.matmul(dz1, X.T) / m
         self.__b1 = self.__b1 - alpha * np.sum(dz1, axis=1, keepdims=True) / m
 
