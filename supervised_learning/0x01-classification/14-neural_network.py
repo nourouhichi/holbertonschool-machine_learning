@@ -77,10 +77,10 @@ class NeuralNetwork:
         m = Y.shape[1]
         dz2 = A2 - Y
         dz1 = np.matmul(self.W2.T, dz2) * (A1 * (1 - A1))
-        self.__W2 += - alpha * np.matmul(dz2, A1.T) / m
-        self.__b2 += - alpha * np.sum(dz2, axis=1) / m
-        self.__W1 += - alpha * np.matmul(dz1, X.T) / m
-        self.__b1 += - alpha * np.sum(dz1, axis=1, keepdims=True) / m
+        self.__W2 = self.__W2 - alpha * np.matmul(dz2, A1.T) / m
+        self.__b2 = self.__b2 - alpha * np.sum(dz2, axis=1) / m
+        self.__W1 = self.__W1 - alpha * np.matmul(dz1, X.T) / m
+        self.__b1 = self.__b1 - alpha * np.sum(dz1, axis=1, keepdims=True) / m
 
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """training function"""
