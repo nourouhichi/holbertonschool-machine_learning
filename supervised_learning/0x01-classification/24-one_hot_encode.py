@@ -7,6 +7,8 @@ import numpy as np
 
 def one_hot_encode(Y, classes):
     """encoding"""
+    if type(Y) is not numpy.ndarray:
+        return None
     try:
         one_hot_encoded = np.zeros((classes, len(Y)))
         for i in range(len(Y)):
