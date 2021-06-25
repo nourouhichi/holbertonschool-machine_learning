@@ -22,7 +22,10 @@ def train_mini_batch(
         accuracy = tf.get_collection("accuracy")[0]
         train_op = tf.get_collection("train_op")[0]
         m = X_train.shape[0]
-
+        if m % batch_size == 0:
+            n_batches = int(m / batch_size)
+        else:
+            n_batches = int((m / batch_size) + 1)
         for epoch in range(epochs + 1):
             cost_t = sess.run(loss, feed_dict={x: X_train, y: Y_train})
             accu_t = sess.run(accuracy, feed_dict={x: X_train, y: Y_train})
@@ -33,22 +36,18 @@ def train_mini_batch(
             print("\tTraining Accuracy: {}".format(accu_t))
             print("\tValidation Cost: {}".format(cost_val))
             print("\tValidation Accuracy: {}".format(accu_val))
-            if m % batch_size == 0:
-                n_batches = m / batch_size
-            else:
-                n_batches = int((m / batch_size) + 1)
             if epoch < epochs:
                 X_shuf, Y_shuf = shuffle_data(X_train, Y_train)
                 for i in range(n_batches):
                     start = i * batch_size
                     limit = start + batch_size
-                    if start > m:
+                    if limit > m:
                         limit = m
                     sess.run(
                         train_op,
                         feed_dict={x: X_shuf[start:limit],
                                    y: Y_shuf[start:limit]})
-                    if i % 100 == 0 and i is not 0:
+                    if (i + 1) % 100 == 0 and i is not 0:
                         tr_cost = sess.run(
                             loss,
                             feed_dict={x: X_shuf[start:limit],
