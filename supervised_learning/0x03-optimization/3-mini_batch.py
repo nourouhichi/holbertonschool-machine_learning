@@ -43,19 +43,21 @@ def train_mini_batch(
                     limit = start + batch_size
                     if limit > m:
                         limit = m
+                    batched_x = X_shuf[start:limit]
+                    batched_y = Y_shuf[start:limit]
                     sess.run(
                         train_op,
-                        feed_dict={x: X_shuf[start:limit],
-                                   y: Y_shuf[start:limit]})
+                        feed_dict={x: batched_x,
+                                   y: batched_y})
                     if (i + 1) % 100 == 0 and i is not 0:
                         tr_cost = sess.run(
                             loss,
-                            feed_dict={x: X_shuf[start:limit],
-                                       y: Y_shuf[start:limit]})
+                            feed_dict={x: batched_x,
+                                       y: batched_y})
                         tr_acc = sess.run(
                             accuracy,
-                            feed_dict={x: X_shuf[start:limit],
-                                       y: Y_shuf[start:limit]})
+                            feed_dict={x: batched_x,
+                                       y: batched_y})
                         print("\t\tStep {}:".format(i))
                         print("\t\tCost: {}".format(tr_cost))
                         print("\t\tAccuracy: {}".format(tr_acc))
