@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """new module"""
 
-import numpy as np
 import tensorflow as tf
 shuffle_data = __import__('2-shuffle_data').shuffle_data
 
@@ -25,7 +24,6 @@ def train_mini_batch(
         m = X_train.shape[0]
 
         for epoch in range(epochs + 1):
-            X_train, Y_train = shuffle_data(X_train, Y_train)
             cost_t = sess.run(loss, feed_dict={x: X_train, y: Y_train})
             accu_t = sess.run(accuracy, feed_dict={x: X_train, y: Y_train})
             cost_val = sess.run(loss, feed_dict={x: X_valid, y: Y_valid})
@@ -35,25 +33,31 @@ def train_mini_batch(
             print("\tTraining Accuracy: {}".format(accu_t))
             print("\tValidation Cost: {}".format(cost_val))
             print("\tValidation Accuracy: {}".format(accu_val))
-            Xt_batched = np.array_split(X_train, (m / batch_size))
-            Yt_batched = np.array_split(Y_train, (m / batch_size))
             if m % batch_size == 0:
                 n_batches = m / batch_size
             else:
-                n_batches = (m / batch_size) + 1
+                n_batches = int((m / batch_size) + 1)
             if epoch < epochs:
-                for i in range(n_batches - 1):
-                    tr_cost = sess.run(
-                        loss,
-                        feed_dict={x: Xt_batched[i], y: Yt_batched[i]})
-                    tr_acc = sess.run(
-                        accuracy,
-                        feed_dict={x: Xt_batched[i], y: Yt_batched[i]})
+                X_shuf, Y_shuf = shuffle_data(X_train, Y_train)
+                for i in range(n_batches):
+                    start = i * batch_size
+                    limit = start + batch_size
+                    if start > m:
+                        limit = m
+                    sess.run(
+                        train_op,
+                        feed_dict={x: X_shuf[start:limit],
+                                   y: Y_shuf[start:limit]})
                     if i % 100 == 0 and i is not 0:
+                        tr_cost = sess.run(
+                            loss,
+                            feed_dict={x: X_shuf[start:limit],
+                                       y: Y_shuf[start:limit]})
+                        tr_acc = sess.run(
+                            accuracy,
+                            feed_dict={x: X_shuf[start:limit],
+                                       y: Y_shuf[start:limit]})
                         print("\t\tStep {}:".format(i))
                         print("\t\tCost: {}".format(tr_cost))
                         print("\t\tAccuracy: {}".format(tr_acc))
-                    sess.run(
-                        train_op,
-                        feed_dict={x: Xt_batched[i], y: Yt_batched[i]})
         return new_saver.save(sess, save_path)
