@@ -123,7 +123,7 @@ class DeepNeuralNetwork:
         """ pickling"""
         if not filename.endswith(".pkl"):
             filename += ".pkl"
-        with open(filename, "wb") as f:
+        with open(filename, "wb+") as f:
             pickle.dump(self, f)
 
     @staticmethod
