@@ -7,6 +7,8 @@ deep Neuralnetwork  module
 import numpy as np
 import matplotlib.pyplot as plt
 import pickle
+from os.path import isfile
+
 
 
 class DeepNeuralNetwork:
@@ -132,6 +134,12 @@ class DeepNeuralNetwork:
     @staticmethod
     def load(filename):
         """unpickling"""
+        if filename == '' or not filename:
+            return None
+        if not filename.endswith('.pkl'):
+            return None
+        if not isfile(filename):
+            return None
         try:
             with open(filename, "rb") as f:
                 load = pickle.load(f)
