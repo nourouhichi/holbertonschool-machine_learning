@@ -133,5 +133,5 @@ class DeepNeuralNetwork:
             with open(filename, "rb") as f:
                 load = pk.load(f)
             return load
-        except Exception:
+        except FileNotFoundError:
             return None
