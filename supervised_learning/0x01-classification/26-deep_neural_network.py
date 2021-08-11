@@ -6,7 +6,7 @@ deep Neuralnetwork  module
 
 import numpy as np
 import matplotlib.pyplot as plt
-import pickle as pk
+import pickle
 
 
 class DeepNeuralNetwork:
@@ -124,14 +124,14 @@ class DeepNeuralNetwork:
         if not filename.endswith(".pkl"):
             filename += ".pkl"
         with open(filename, "wb") as f:
-            pk.dump(self, f, protocol=pk.HIGHEST_PROTOCOL)
+            pickle.dump(self, f)
 
     @staticmethod
     def load(filename):
         """unpickling"""
         try:
             with open(filename, "rb") as f:
-                load = pk.load(f)
+                load = pickle.load(f)
             return load
         except FileNotFoundError:
             return None
