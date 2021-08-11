@@ -119,8 +119,6 @@ class DeepNeuralNetwork:
 
     def save(self, filename):
         """ pickling"""
-        if filename == '' or not filename:
-            return None
         if not filename.endswith(".pkl"):
             filename += ".pkl"
             with open(filename, "wb") as f:
