@@ -24,9 +24,9 @@ def train_mini_batch(
 
         m = X_train.shape[0]
         if m % batch_size == 0:
-            n_batches = int(m / batch_size)
+            n_batches = m // batch_size
         else:
-            n_batches = int((m / batch_size) + 1)
+            n_batches = (m // batch_size) + 1
         for epoch in range(epochs + 1):
             cost_t = sess.run(loss, feed_dict={x: X_train, y: Y_train})
             accu_t = sess.run(accuracy, feed_dict={x: X_train, y: Y_train})
@@ -39,7 +39,7 @@ def train_mini_batch(
             print("\tValidation Accuracy: {}".format(accu_val))
             if epoch < epochs:
                 X_shuf, Y_shuf = shuffle_data(X_train, Y_train)
-                for i in range(n_batches):
+                for i in range(n_batches + 1):
                     start = i * batch_size
                     limit = start + batch_size
                     if limit > m:
