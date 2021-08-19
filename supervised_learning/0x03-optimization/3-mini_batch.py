@@ -41,7 +41,7 @@ def train_mini_batch(
                 X_shuf, Y_shuf = shuffle_data(X_train, Y_train)
                 for i in range(n_batches):
                     start = i * batch_size
-                    if i == n_batches - 1 and  m % batch_size != 0:
+                    if i == n_batches - 1 and m % batch_size != 0:
                         limit = m
                     else:
                         limit = start + batch_size
@@ -51,7 +51,7 @@ def train_mini_batch(
                         train_op,
                         feed_dict={x: batched_x,
                                    y: batched_y})
-                    if (i) % 100 == 0 and i is not 0:
+                    if (i + 1) % 100 == 0 and i is not 0:
                         tr_cost = sess.run(
                             loss,
                             feed_dict={x: batched_x,
