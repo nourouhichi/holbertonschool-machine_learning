@@ -39,11 +39,12 @@ def train_mini_batch(
             print("\tValidation Accuracy: {}".format(accu_val))
             if epoch < epochs:
                 X_shuf, Y_shuf = shuffle_data(X_train, Y_train)
-                for i in range(n_batches + 1):
+                for i in range(n_batches):
                     start = i * batch_size
-                    limit = start + batch_size
-                    if limit > m:
+                    if i == n_batches - 1 and  m % batch_size != 0:
                         limit = m
+                    else:
+                        limit = start + batch_size
                     batched_x = X_shuf[start:limit]
                     batched_y = Y_shuf[start:limit]
                     sess.run(
