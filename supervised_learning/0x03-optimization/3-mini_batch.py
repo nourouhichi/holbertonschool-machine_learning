@@ -27,7 +27,7 @@ def train_mini_batch(
             n_batches = int(m / batch_size)
         else:
             n_batches = int((m / batch_size) + 1)
-        for epoch in range(epochs):
+        for epoch in range(epochs + 1):
             cost_t = sess.run(loss, feed_dict={x: X_train, y: Y_train})
             accu_t = sess.run(accuracy, feed_dict={x: X_train, y: Y_train})
             cost_val = sess.run(loss, feed_dict={x: X_valid, y: Y_valid})
