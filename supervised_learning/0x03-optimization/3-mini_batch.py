@@ -42,7 +42,7 @@ def train_mini_batch(
                 for i in range(n_batches):
                     start = i * batch_size
                     limit = start + batch_size
-                    if limit > m or limit == m - 1:
+                    if limit > m:
                         limit = m
                     batched_x = X_shuf[start:limit]
                     batched_y = Y_shuf[start:limit]
