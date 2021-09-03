@@ -6,4 +6,4 @@ import tensorflow as tf
 
 def l2_reg_cost(cost):
     """cost function reg"""
-    return cost + tf.contrib.l2_regularizer()
+    return cost + tf.losses.get_regularization_losses()
