@@ -3,7 +3,6 @@
 
 
 import numpy as np
-from math import ceil, floor
 
 
 def convolve_grayscale_same(images, kernel):
