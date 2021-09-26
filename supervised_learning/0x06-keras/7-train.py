@@ -13,12 +13,17 @@ def train_model(network, data, labels,
     """training model using keras"""
     def scheduler(epoch):
         return alpha / (1 + decay_rate * epoch)
-    if early_stopping:
-        callback = K.callbacks.EarlyStopping(patience=patience)
     if learning_rate_decay:
         callback_1 = K.callbacks.LearningRateScheduler(scheduler, verbose=1)
+    if early_stopping:
+        callback = K.callbacks.EarlyStopping(patience=patience)
+        return network.fit(data, labels, epochs=epochs,
+                           callbacks=[callback, callback_1],
+                           batch_size=batch_size, verbose=verbose,
+                           validation_data=validation_data,
+                           shuffle=shuffle)
     return network.fit(data, labels, epochs=epochs,
-                       callbacks=[callback, callback_1],
+                       callbacks=[callback_1],
                        batch_size=batch_size, verbose=verbose,
                        validation_data=validation_data,
                        shuffle=shuffle)
