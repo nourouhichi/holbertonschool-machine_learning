@@ -1,5 +1,5 @@
 #!/usr/bin/env python34
-"""cnn"""
+"""covnet module"""
 
 
 import numpy as np
@@ -16,8 +16,8 @@ def conv_forward(A_prev, W, b,
         pad_h = 0
         pad_w = 0
     elif padding == 'same':
-        pad_h = int((((h_prev - 1) * sh + kh - h_prev) / 2)) + 1
-        pad_w = int((((w_prev - 1) * sw + kw - w_prev) / 2)) + 1
+        pad_h = int(np.ceil(((h_prev- 1) * sh + kh - h_prev) / 2))
+        pad_w = int(np.ceil(((w_prev - 1) * sw + kw - w_prev) / 2))
     output_h = int(((h_prev - kh + 2 * pad_h) / sh) + 1)
     output_w = int(((w_prev - kw + 2 * pad_w) / sw) + 1)
     output = np.zeros((m, output_h, output_w, c_new))
