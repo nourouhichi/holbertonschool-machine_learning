@@ -3,7 +3,6 @@
 
 
 import tensorflow.keras as K
-from tensorflow.python.ops.init_ops import Initializer
 
 
 def lenet5(X):
