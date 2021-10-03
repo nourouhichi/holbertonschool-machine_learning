@@ -28,8 +28,9 @@ def lenet5(x, y):
     l1 = tf.nn.relu(tf.layers.Dense(120,
                                     kernel_initializer=initializer)
                     (tf.layers.Flatten()(p2)))
-    l2 = tf.nn.relu(tf.layers.Dense(80,
-                                    kernel_initializer=initializer)(l1))
+    l2 = tf.layers.Dense(84,
+                         kernel_initializer=initializer,
+                         activation="relu")(l1)
     lf = tf.layers.Dense(10,
                          kernel_initializer=initializer,)(l2)
     y_pred = tf.nn.softmax(lf)
