@@ -31,8 +31,8 @@ def conv_forward(A_prev, W, b,
             for c in range(c_new):
                 piece = img_pad[:, x*sh:x*sh+kh, y*sw:y*sw+kw, :]
                 output[:, x, y, c] = activation(
-                                                piece * W[:, :, :, c] +
-                                                b[:, :, :, c]).sum(
-                                                axis=(1, 2, 3))
+                                               (piece * W[:, :, :, c]).sum(
+                                                axis=(1, 2, 3)) +
+                                                b[:, :, :, c])
 
     return output
