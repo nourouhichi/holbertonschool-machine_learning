@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ Convolutional Neural Networks """
 import numpy as np
-from numpy.core.numeric import zeros_like
 
 
 def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
@@ -18,7 +17,7 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
                 for c in range(cnew):
                     if mode == "max":
                         slice = A[z, x*sh:x*sh+kh, y*sw:y*sw+kw, c]
-                        bool = (np.max(slice) == slice)
+                        bool = (slice == np.max(slice))
                         da_prev[z, x*sh:x*sh+kh, y*sw:y *
                                 sw+kw, c] += np.multiply(bool, dA[z, x, y, c])
                     if mode == 'avg':
