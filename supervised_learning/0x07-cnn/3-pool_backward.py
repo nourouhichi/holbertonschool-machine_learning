@@ -10,13 +10,14 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
     m, hnew, wnew, cnew = dA.shape
     kh, kw = kernel_shape
     sh, sw = stride
+    A = A_prev
     da_prev = np.zeros_like(A_prev)
     for z in range(m):
         for x in range(hnew):
             for y in range(wnew):
                 for c in range(cnew):
                     if mode == "max":
-                        slice = A_prev[z, x*sh:x*sh+kh, y*sw:y*sw+kw, c]
+                        slice = A[z, x*sh:x*sh+kh, y*sw:y*sw+kw, c]
                         bool = (np.max(slice) == slice)
                         da_prev[z, x*sh:x*sh+kh, y*sw:y *
                                 sw+kw, c] += np.multiply(bool, dA[z, x, y, c])
