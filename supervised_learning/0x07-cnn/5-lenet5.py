@@ -3,7 +3,6 @@
 
 
 import tensorflow.keras as K
-from tensorflow.python.keras.layers.core import Activation
 
 
 def lenet5(X):
