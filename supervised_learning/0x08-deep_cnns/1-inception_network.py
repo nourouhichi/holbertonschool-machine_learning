@@ -24,13 +24,11 @@ def inception_network():
                          activation="relu")(X)
     p1 = K.layers.MaxPooling2D(pool_size=(3, 3), strides=(2, 2),
                                padding="same")(c1)
-    c = K.layers.Conv2D(64, (1, 1), padding='same',
-                        activation='relu')(p1)
     c2 = K.layers.Conv2D(
                          192,
                          (3, 3),
                          padding="same",
-                         activation="relu")(c)
+                         activation="relu")(p1)
     p2 = K.layers.MaxPooling2D(pool_size=(3, 3), strides=(2, 2),
                                padding="same")(c2)
     c3 = inception_block(p2, inception3a)
