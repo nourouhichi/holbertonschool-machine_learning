@@ -7,42 +7,35 @@ projection_block = __import__('3-projection_block').projection_block
 
 def resnet50():
     """ResNet-50 architecture """
-    input_layer = K.Input(shape=(224, 224, 3))
-    initializer = K.initializers.he_normal()
+    init = K.initializers.he_normal()
+    input = K.Input((224, 224, 3))
+    c1 = K.layers.Conv2D(64, (7, 7), padding='same', strides=2,
+                         kernel_initializer=init)(input)
+    norm1 = K.layers.BatchNormalization()(c1)
+    l1 = K.layers.Activation('relu')(norm1)
+    p1 = K.layers.MaxPooling2D((3, 3),
+                               strides=(2, 2),
+                               padding='same')(l1)
 
-    layer = K.layers.Conv2D(64, (7, 7), padding='same', strides=2,
-                            kernel_initializer=initializer)(input_layer)
-    layer = K.layers.BatchNormalization()(layer)
-    layer = K.layers.Activation('relu')(layer)
-    layer = K.layers.MaxPooling2D(
-        (3, 3), strides=(
-            2, 2), padding='same')(layer)
-
-    layer = projection_block(layer, [64, 64, 256], s=1)
-    layer = identity_block(layer, [64, 64, 256])
-    layer = identity_block(layer, [64, 64, 256])
-
-    layer = projection_block(layer, [128, 128, 512], s=2)
-    layer = identity_block(layer, [128, 128, 512])
-    layer = identity_block(layer, [128, 128, 512])
-    layer = identity_block(layer, [128, 128, 512])
-
-    layer = projection_block(layer, [256, 256, 1024], s=2)
-    layer = identity_block(layer, [256, 256, 1024])
-    layer = identity_block(layer, [256, 256, 1024])
-    layer = identity_block(layer, [256, 256, 1024])
-    layer = identity_block(layer, [256, 256, 1024])
-    layer = identity_block(layer, [256, 256, 1024])
-
-    layer = projection_block(layer, [512, 512, 2048], s=2)
-    layer = identity_block(layer, [512, 512, 2048])
-    layer = identity_block(layer, [512, 512, 2048])
-
-    layer = K.layers.AveragePooling2D((7, 7))(layer)
-
+    proj = projection_block(p1, [64, 64, 256], 1)
+    id = identity_block(proj, [64, 64, 256])
+    id = identity_block(id, [64, 64, 256])
+    proj = projection_block(id, [128, 128, 512], 2)
+    id = identity_block(proj, [128, 128, 512])
+    id = identity_block(id, [128, 128, 512])
+    id = identity_block(id, [128, 128, 512])
+    proj = projection_block(id, [256, 256, 1024], 2)
+    id = identity_block(proj, [256, 256, 1024])
+    id = identity_block(id, [256, 256, 1024])
+    id = identity_block(id, [256, 256, 1024])
+    id = identity_block(id, [256, 256, 1024])
+    id = identity_block(id, [256, 256, 1024])
+    proj = projection_block(id, [512, 512, 2048], 2)
+    id = identity_block(proj, [512, 512, 2048])
+    id = identity_block(id, [512, 512, 2048])
+    p2 = K.layers.AveragePooling2D((7, 7))(id)
     output = K.layers.Dense(
-        1000,
-        activation='softmax',
-        kernel_initializer=initializer)(layer)
-
-    return K.models.Model(inputs=input_layer, outputs=output)
+                            1000,
+                            activation='softmax',
+                            kernel_initializer=init)(p2)
+    return K.models.Model(inputs=input, outputs=output)
