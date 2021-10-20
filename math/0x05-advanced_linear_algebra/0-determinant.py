@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""determinant"""
+"""determinant advanced linear algb"""
 
 
 def determinant(matrix):
