@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""minor advanced linear algb"""
+"""cofactor of a matrix"""
 
 
 def determinant(matrix):
@@ -33,12 +33,12 @@ def determinant(matrix):
 
 def minor(matrix):
     """minor matrix """
-    if type(matrix) != list:
+    if type(matrix) != list or matrix == []:
         raise TypeError('matrix must be a list of lists')
     for i in range(len(matrix)):
         if len(matrix) != len(matrix[i]):
             raise ValueError('matrix must be a non-empty square matrix')
-    if len(matrix) == 0:
+    if matrix == [[]]:
         raise ValueError('matrix must be a non-empty square matrix')
     for i in matrix:
         if type(i) is not list:
@@ -57,3 +57,38 @@ def minor(matrix):
             m_m.append(det)
         minor_m.append(m_m)
     return minor_m
+
+
+def cofactor(matrix):
+    """cofactor calculator"""
+    m = minor(matrix)
+    for i in range(len(m)):
+        for j in range(len(m[0])):
+            if(i + j) % 2 != 0:
+                m[i][j] *= (-1)
+    return m
+
+
+def adjugate(matrix):
+    """adj calculator"""
+    cof = cofactor(matrix)
+    ad = []
+    for i in range(len(cof)):
+        inv = []
+        for j in range(len(cof)):
+            inv.append(cof[j][i])
+        ad.append(inv)
+    return ad
+
+
+def inverse(matrix):
+    """inverse calculation if exists"""
+    det = determinant(matrix)
+    if det == 0:
+        return None
+    ad = adjugate(matrix)
+    inv = []
+    for i in ad:
+        x = [y / det for y in i]
+        inv.append(x)
+    return inv

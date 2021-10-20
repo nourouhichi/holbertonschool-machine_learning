@@ -37,9 +37,9 @@ def minor(matrix):
         raise TypeError('matrix must be a list of lists')
     for i in range(len(matrix)):
         if len(matrix) != len(matrix[i]):
-            raise ValueError('matrix must be a non-empty square')
+            raise ValueError('matrix must be a non-empty square matrix')
     if matrix == [[]]:
-        raise ValueError('matrix must be a non-empty square')
+        raise ValueError('matrix must be a non-empty square matrix')
     for i in matrix:
         if type(i) is not list:
             raise TypeError('matrix must be a list of lists')
@@ -60,6 +60,7 @@ def minor(matrix):
 
 
 def cofactor(matrix):
+    """cofactor calculator"""
     m = minor(matrix)
     for i in range(len(m)):
         for j in range(len(m[0])):
