@@ -3,14 +3,13 @@
 
 
 def determinant(matrix):
-    """det of a matrix"""
     if matrix == [[]]:
         return 1
-    if type(matrix) != list or matrix == [] or any(
-             not isinstance(i, list) for i in matrix):
+    if type(matrix) != list or matrix == []:
         raise TypeError("matrix must be a list of lists")
-    if len(matrix) != len(matrix[0]):
-        raise ValueError('matrix must be a square matrix')
+    for i in range(len(matrix)):
+        if len(matrix) != len(matrix[i]):
+            raise ValueError('matrix must be a square matrix')
     ind = list(range(len(matrix)))
     if len(matrix) == 1:
         return matrix[0][0]
