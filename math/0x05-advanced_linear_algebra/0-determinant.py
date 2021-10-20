@@ -10,6 +10,9 @@ def determinant(matrix):
     for i in range(len(matrix)):
         if len(matrix) != len(matrix[i]):
             raise ValueError('matrix must be a square matrix')
+    for i in matrix:
+        if type(i) is not list:
+            raise TypeError("matrix must be a list of lists")
     ind = list(range(len(matrix)))
     if len(matrix) == 1:
         return matrix[0][0]
