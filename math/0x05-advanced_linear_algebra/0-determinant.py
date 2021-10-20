@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""det"""
+"""determinant"""
 
 
 def determinant(matrix):
-    """det"""
+    """det of a matrix"""
     if matrix == [[]]:
         return 1
-    if type(matrix) != list or matrix == []:
+    if type(matrix) != list or matrix == [] or any(
+             not isinstance(i, list) for i in matrix):
         raise TypeError("matrix must be a list of lists")
     if len(matrix) != len(matrix[0]):
         raise ValueError('matrix must be a square matrix')
