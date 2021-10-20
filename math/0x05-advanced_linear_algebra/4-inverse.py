@@ -10,7 +10,7 @@ def determinant(matrix):
         raise TypeError('matrix must be a list of lists')
     for i in range(len(matrix)):
         if len(matrix) != len(matrix[i]):
-            raise ValueError('matrix must be a square matrix')
+            raise ValueError('matrix must be a non-empty square matrix')
     for i in matrix:
         if type(i) is not list:
             raise TypeError('matrix must be a list of lists')
