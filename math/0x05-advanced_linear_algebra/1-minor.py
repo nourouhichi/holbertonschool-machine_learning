@@ -29,15 +29,10 @@ def minor(matrix):
         if len(matrix) != len(matrix[i]):
             raise ValueError('matrix must be a non-empty square')
     if matrix == [[]]:
-            raise ValueError('matrix must be a non-empty square')
+        raise ValueError('matrix must be a non-empty square')
     for i in matrix:
         if type(i) is not list:
             raise TypeError('matrix must be a list of lists')
-    if len(matrix) == 2:
-        m = []
-        m.append(matrix[1])
-        m.append(matrix[0])
-        return m
     if len(matrix) == 1:
         return [[1]]
     minor_m = []
