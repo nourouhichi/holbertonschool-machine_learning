@@ -3,6 +3,7 @@
 
 
 def determinant(matrix):
+    """det matrix calculation"""
     if matrix == [[]]:
         return 1
     if type(matrix) != list or matrix == []:
