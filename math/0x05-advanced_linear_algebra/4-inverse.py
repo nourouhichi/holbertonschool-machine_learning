@@ -88,7 +88,7 @@ def inverse(matrix):
         return None
     ad = adjugate(matrix)
     inv = []
-    for i in ad:
-        x = [y / det for y in i]
-        inv.append(x)
-    return inv
+    for i in matrix:
+        for j in range(len(matrix)):
+            ad[i][j] /= det
+    return ad
