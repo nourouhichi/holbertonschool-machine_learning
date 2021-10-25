@@ -5,11 +5,11 @@ import numpy as np
 
 def mean_cov(X):
     """mean cov"""
-    if len(X.shape) != 2 or type(X) != np.ndarray:
+    if type(X) != np.ndarray or len(X.shape) != 2:
         raise TypeError("X must be a 2D numpy.ndarray")
     if X.shape[0] < 2:
         raise ValueError("X must contain multiple data points")
-    N ,d = X.shape
+    N, d = X.shape
     mean = np.mean(X, axis=0).reshape(1, d)
     devi = X - mean
     cov = np.matmul(devi.T, devi) / (N - 1)
