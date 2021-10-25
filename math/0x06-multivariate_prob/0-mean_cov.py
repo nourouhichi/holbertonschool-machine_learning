@@ -9,6 +9,7 @@ def mean_cov(X):
         raise TypeError("X must be a 2D numpy.ndarray")
     elif X.shape[0] < 2:
         raise ValueError("X must contain multiple data points")
+    N = X.shape[0]
     mean = X.mean(axis=0, keepdims=True)
-    cov = np.matmul((X - mean).T, X - mean) / (X.shape[0] - 1)
+    cov = np.matmul((X - mean).T, X - mean) / (N - 1)
     return mean, cov
