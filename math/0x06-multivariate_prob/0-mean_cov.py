@@ -7,7 +7,7 @@ def mean_cov(X):
     """mean cov"""
     if len(X.shape) != 2 or type(X) != np.ndarray:
         raise TypeError("X must be a 2D numpy.ndarray")
-    elif X.shape[0] < 2:
+    if X.shape[0] < 2:
         raise ValueError("X must contain multiple data points")
     N = X.shape[0]
     mean = X.mean(axis=0, keepdims=True)
