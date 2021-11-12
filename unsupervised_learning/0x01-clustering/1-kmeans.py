@@ -17,29 +17,28 @@ def initialize(X, k):
 
 def kmeans(X, k, iterations=1000):
     """iteration operation"""
-    if type(X) is not np.ndarray:
-        return None, None
-    if len(X.shape) != 2:
-        return None, None
     if type(iterations) != int or iterations <= 0:
         return None, None
     centroids = initialize(X, k)
-    if centroids == None:
+    if centroids is None:
         return None, None
-    for _ in range(iterations):
-        clusters = np.argmin(np.linalg.norm(
-                             X[:, None] - centroids, axis=-1), axis=-1)
-        C = np.zeros_like(centroids)
-        for c in range(k):
-            if c not in clusters:
-                C[c] = np.random.uniform(np.amin(
-                                         X, axis=0), np.amax(
-                                         X, axis=0))
-            else:
-                C[c] = np.mean(X[clusters == c], axis=0)
-        if(C == centroids).all():
-            return centroids, clusters
-        centroids = C
-    clusters = np.argmin(np.linalg.norm(X[
-                         :, None] - centroids, axis=-1), axis=-1)
-    return C, clusters
+    try:
+        for _ in range(iterations):
+            clusters = np.argmin(np.linalg.norm(
+                                X[:, None] - centroids, axis=-1), axis=-1)
+            C = np.zeros_like(centroids)
+            for c in range(k):
+                if c not in clusters:
+                    C[c] = np.random.uniform(np.amin(
+                                            X, axis=0), np.amax(
+                                            X, axis=0))
+                else:
+                    C[c] = np.mean(X[clusters == c], axis=0)
+            if(C == centroids).all():
+                return centroids, clusters
+            centroids = C
+        clusters = np.argmin(np.linalg.norm(X[
+                            :, None] - centroids, axis=-1), axis=-1)
+        return C, clusters
+    except Exception:
+        return None, None
