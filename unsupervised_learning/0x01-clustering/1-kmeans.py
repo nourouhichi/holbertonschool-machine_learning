@@ -25,7 +25,12 @@ def kmeans(X, k, iterations=1000):
                              X[:, None] - centroids, axis=-1), axis=-1)
         C = np.zeros_like(centroids)
         for c in range(k):
-            C[c] = np.mean(X[clusters == c], axis=0)
+            if C not in clusters:
+                C[c] = np.random.uniform(np.amin(
+                                         X, axis=0), np.amax(
+                                         X, axis=0))
+            else:
+                C[c] = np.mean(X[clusters == c], axis=0)
         if(C == centroids).all():
             return centroids, clusters
         centroids = C
