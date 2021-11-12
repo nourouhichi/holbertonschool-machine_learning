@@ -4,6 +4,7 @@ import numpy as np
 
 
 def markov_chain(P, s, t=1):
+    """proba"""
     if type(P) != np.ndarray or type(
             s) != np.ndarray or type(
             t) != int or t < 0:
