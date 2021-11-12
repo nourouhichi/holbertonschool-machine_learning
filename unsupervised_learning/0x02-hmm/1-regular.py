@@ -5,6 +5,8 @@ import numpy as np
 
 def regular(P):
     """stationary"""
+    if len(P.shape) != 2:
+        return None
     try:
         power = np.linalg.matrix_power(P, 100)
     except Exception:
