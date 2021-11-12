@@ -17,9 +17,15 @@ def initialize(X, k):
 
 def kmeans(X, k, iterations=1000):
     """iteration operation"""
+    if type(X) is not np.ndarray:
+        return None, None
+    if len(X.shape) != 2:
+        return None, None
     if type(iterations) != int or iterations <= 0:
-        return None
+        return None, None
     centroids = initialize(X, k)
+    if centroids == None:
+        return None, None
     for _ in range(iterations):
         clusters = np.argmin(np.linalg.norm(
                              X[:, None] - centroids, axis=-1), axis=-1)
