@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
 """markov chain"""
 import numpy as np
-from numpy.core.fromnumeric import shape
 
 
 def absorbing(P):
     """absorbing markov chain"""
-    n = P.shape[0]
-    diag = P.diagonal()
-    absorb = P[np.where(diag == 1)]
-    trans = np.delete(P, np.where(diag == 1), axis=0)
-    Q = trans[:, absorb.shape[0]:]
-    R = trans[:, :absorb.shape[0]]
-    I = np.zeros((absorb.shape[0], absorb.shape[0]))
-    print(I)
-    np.fill_diagonal(I, 1)
     try:
-        print((I - Q).T * R)
-        fond = (I - Q).T * R
+        n = P.shape[0]
+        diag = np.where(np.diag(P) == 1, 1, 0)
+        if not np.any(diag == 1):
+            return False
+
+        d, v = np.linalg.eig(P)
+        P_ = np.matmul(np.matmul(v, np.diag(
+                       d == 1).astype(int)), np.linalg.inv(v))
+
+        if int(np.ceil(np.max(P_.sum()))) != n:
+            return False
+        return True
+
     except Exception:
-        pass
-    return False
-        
+        return False
