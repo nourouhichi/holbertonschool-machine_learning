@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """bayes optim """
+from scipy.stats import norm
 import numpy as np
 GP = __import__('2-gp').GaussianProcess
-from scipy.stats import norm
 
 
 class BayesianOptimization:
@@ -20,10 +20,10 @@ class BayesianOptimization:
             xsi=0.01,
             minimize=True):
         """ Init function"""
-        l, h = bounds
+        min, h = bounds
         self.f = f
         self.gp = GP(X_init, Y_init, l, sigma_f)
-        self.X_s = np.linspace(l, h, ac_samples).reshape((-1, 1))
+        self.X_s = np.linspace(min, h, ac_samples).reshape((-1, 1))
         self.xsi = xsi
         self.minimize = minimize
 
