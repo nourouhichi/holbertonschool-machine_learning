@@ -13,16 +13,16 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     for i in hidden_layers[1::]:
         enc = keras.layers.Dense(i, activation='relu')(enc)
 
-    mean = keras.layers.Dense(latent_dims, activation=None)(enc)
+    mean_z = keras.layers.Dense(latent_dims, activation=None)(enc)
     sigma = keras.layers.Dense(latent_dims, activation=None)(enc)
     ep = keras.backend.random_normal(
                                      shape=(latent_dims,),
                                      mean=0.0, stddev=1.0)
-    ech = mean + keras.backend.exp(sigma / 2) * ep
+    ech = mean_z + keras.backend.exp(sigma / 2) * ep
     z = keras.layers.Lambda(ech, output_shape=(
-        latent_dims,))([mean, sigma])
+        latent_dims,))([mean_z, sigma])
 
-    encoder = keras.Model(input_en, [mean, sigma, z])
+    encoder = keras.Model(input_en, [mean_z, sigma, z])
     input_dec = keras.Input(shape=(latent_dims,))
     dec = keras.layers.Dense(
                              hidden_layers[-1],
@@ -37,7 +37,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     rec_l = keras.losses.binary_crossentropy(
         input_en, output)
     rec_l *= input_dims
-    loss = 1 + sigma - keras.backend.square(mean) \
+    loss = 1 + sigma - keras.backend.square(mean_z) \
         - keras.backend.exp(sigma)
     loss = keras.backend.sum(loss, axis=-1)
     loss *= -0.5
