@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """nlp word embeddings"""
-import re
 from gensim.models import Word2Vec
 
 
