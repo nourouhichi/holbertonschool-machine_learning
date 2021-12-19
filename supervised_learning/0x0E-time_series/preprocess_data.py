@@ -2,6 +2,7 @@
 import pandas as pd
 import tensorflow as tf
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class WindowGenerator:
@@ -84,7 +85,7 @@ def preprocess():
              "Low", "Volume_(BTC)", "Open"], axis=1, inplace=True)
     df["Timestamp"] = pd.to_datetime(df["Timestamp"], unit='s')
     df.dropna(inplace=True)
-    df = df[df["Timestamp"] >= "2017-01-01 00:00:00"]
+    df = df[df["Timestamp"] >= "2014-01-01 00:00:00"]
     # windowing per hour
     df = df.set_index("Timestamp").asfreq("1H")
     df.dropna(inplace=True)
