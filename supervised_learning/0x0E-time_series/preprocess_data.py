@@ -89,25 +89,14 @@ def preprocess():
     # windowing per hour
     df = df.set_index("Timestamp").asfreq("1H")
     df.dropna(inplace=True)
+    df_mean = df.mean()
+    df_std = df.std()
+    df = (df - df_mean) /df_std
     # train, val, test slicing
     i = df.shape[0]
     train_set = df[0:int(i*0.7)]
     validation_set = df[int(i*0.7):int(i*0.9)]
     test_set = df[int(i*0.9):]
-    # normalization
-    train_set.dropna(inplace=True)
-    train_mean = train_set.mean()
-    train_std = train_set.std()
-    train_set = (train_set - train_mean) / train_std
-
-    test_mean = test_set.mean()
-    test_std = test_set.std()
-    test_set = (test_set - test_mean) / test_std
-
-    validation_mean = validation_set.mean()
-    validation_std = validation_set.std()
-    validation_set = (validation_set - validation_mean) / validation_std
-
     window = WindowGenerator(input_width=24, label_width=1, shift=1,
                              label_columns=["Close"],
                              train_df=train_set, val_df=validation_set,
