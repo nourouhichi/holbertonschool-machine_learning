@@ -22,23 +22,26 @@ def kmeans(X, k, iterations=1000):
     centroids = initialize(X, k)
     if centroids is None:
         return None, None
+
     try:
+        n, d = X.shape
+        clss = np.ndarray((n,))
+        C = np.ndarray((k, d))
         for _ in range(iterations):
-            clusters = np.argmin(np.linalg.norm(
-                                X[:, None] - centroids, axis=-1), axis=-1)
-            C = np.zeros_like(centroids)
-            for c in range(k):
-                if c not in clusters:
-                    C[c] = np.random.uniform(np.amin(
-                                            X, axis=0), np.amax(
-                                            X, axis=0))
+            for i in range(n):
+                dist = np.sqrt(np.sum(np.square(centroids - X[i]), axis=1))
+                clss[i] = np.argmin(dist, axis=0)
+            for x in range(k):
+                if x not in clss:
+                    maxi = np.max(X, axis=0)
+                    mini = np.min(X, axis=0)
+                    C[x] = np.random.uniform(mini, maxi)
                 else:
-                    C[c] = np.mean(X[clusters == c], axis=0)
+                    C[x] = np.mean(X[np.argwhere(
+                        clss == x).reshape(-1)], axis=0)
             if(C == centroids).all():
-                return centroids, clusters
-            centroids = C
-        clusters = np.argmin(np.linalg.norm(X[
-                            :, None] - centroids, axis=-1), axis=-1)
-        return C, clusters
+                return centroids, clss
+            centroids = C.copy()
+        return C, clss
     except Exception:
         return None, None
