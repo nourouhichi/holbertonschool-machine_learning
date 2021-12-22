@@ -28,8 +28,8 @@ def kmeans(X, k, iterations=1000):
         clss = np.ndarray((n,))
         C = np.ndarray((k, d))
         for _ in range(iterations):
-            dist = np.sqrt(np.sum(np.square(X[
-                :, np.newaxis, :] - centroids), axis=2))
+            dist = np.sum(np.square(X[
+                :, np.newaxis, :] - centroids), axis=2)
             clss = np.argmin(dist, axis=1)
             for x in range(k):
                 if x not in clss:
