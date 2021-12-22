@@ -86,7 +86,7 @@ def kmeans(X, k, iterations=1000):
                     C[x] = np.random.uniform(mini, maxi)
                 else:
                     C[x] = np.mean(X[np.argwhere(
-                        clss == x)], axis=0)
+                        clss == x).reshape(-1)], axis=0)
             if(C == centroids).all():
                 return centroids, clss
             centroids = C.copy()
