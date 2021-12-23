@@ -8,8 +8,12 @@ variance = __import__('2-variance').variance
 def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     """optimum number of clusters"""
     try:
-        if kmax == None:
+        if X is None:
+            return None, None
+        if kmax is None:
             kmax = X.shape[0]
+        if kmax <= 0 or kmax <= kmin:
+            return None, None
         results = []
         d_vars = []
         for k in range(kmin, kmax + 1):
