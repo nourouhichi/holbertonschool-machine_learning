@@ -8,7 +8,7 @@ variance = __import__('2-variance').variance
 def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     """optimum number of clusters"""
     try:
-        if X is None:
+        if type(X) is not np.ndarray or X.ndim != 2:
             return None, None
         if kmax is None:
             kmax = X.shape[0]
