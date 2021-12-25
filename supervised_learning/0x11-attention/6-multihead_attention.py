@@ -26,13 +26,9 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         p = [0, 2, 1, 3]
         param = (batch_size, -1, self.h, self.depth)
         q = tf.reshape(q, param)
-        q = tf.transpose(q, perm=p)
         k = tf.reshape(k, param)
-        k = tf.transpose(k, perm=p)
         v = tf.reshape(v, param)
-        v = tf.transpose(v, perm=p)
         softmax, output = sdp_attention(q, k, v, mask)
-        softmax = tf.transpose(softmax, perm=p)
         concat = tf.reshape(softmax, (batch_size, -1, self.dm))
         output = self.linear(concat)
         return output, output
