@@ -23,7 +23,6 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         q = self.Wq(Q)
         k = self.Wk(K)
         v = self.Wv(V)
-        p = [0, 2, 1, 3]
         param = (batch_size, -1, self.h, self.depth)
         q = tf.reshape(q, param)
         k = tf.reshape(k, param)
