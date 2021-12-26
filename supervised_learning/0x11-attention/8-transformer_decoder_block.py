@@ -29,9 +29,9 @@ class DecoderBlock(tf.keras.layers.Layer):
         mh_2, _ = self.mha2(o1, encoder_output,
                             encoder_output,
                             padding_mask)
-        mhoutput2 = self.dropout2(mh_2, training=training)
-        o2 = self.layernorm2(mhoutput2 + o1)
-        seq = tf.keras.Sequential([self.dense_hidden, self.dense_hidden])
+        mh_2 = self.dropout2(mh_2, training=training)
+        o2 = self.layernorm2(mh_2 + o1)
+        seq = tf.keras.Sequential([self.dense_hidden, self.dense_output])
         output = seq(o2)
         output = self.dropout3(output, training=training)
         o3 = self.layernorm3(output + o2)
