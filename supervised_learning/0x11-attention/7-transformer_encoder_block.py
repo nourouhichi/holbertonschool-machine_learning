@@ -24,4 +24,4 @@ class EncoderBlock(tf.keras.layers.Layer):
         y = self.layernorm1(x + mh)
         s = tf.keras.Sequential([self.dense_hidden, self.dense_output])
         seq_output = self.dropout2(s(y), training=training)
-        return self.layernorm2(seq_output)
+        return self.layernorm2(y + seq_output)
