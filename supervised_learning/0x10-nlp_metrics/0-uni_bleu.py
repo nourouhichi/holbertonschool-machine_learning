@@ -21,4 +21,4 @@ def uni_bleu(references, sentence):
             occ.append(y.count(i))
         num += max(occ)
         occ = []
-        return pen * num / length
+    return pen * num / length
