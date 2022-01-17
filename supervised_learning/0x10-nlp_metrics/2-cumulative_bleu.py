@@ -28,6 +28,7 @@ def ngram_bleu(references, sentence, n):
         occ = []
     return num / len(n_grams)
 
+
 def cumulative_bleu(references, sentence, n):
     """cum bleu score"""
     length = len(sentence)
@@ -44,4 +45,3 @@ def cumulative_bleu(references, sentence, n):
     grams = np.array(grams)
     sum = np.exp(np.sum((1 / n) * np.log(grams)))
     return pen * sum
-    
