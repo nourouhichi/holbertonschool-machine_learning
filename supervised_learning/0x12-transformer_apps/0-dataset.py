@@ -11,7 +11,7 @@ class Dataset:
                                     split='train',
                                     as_supervised=True)
         self.data_valid = tfds.load('ted_hrlr_translate/pt_to_en',
-                                    split='validate',
+                                    split='validation',
                                     as_supervised=True)
         self.tokenizer_pt, self.tokenizer_en = self.tokenize_dataset(
             self.data_train)
@@ -21,8 +21,8 @@ class Dataset:
         eng = []
         port = []
         for i, y in data:
-            eng.append(list(y))
-            port.append(list(i))
+            eng.append(y.numpy())
+            port.append(i.numpy())
         token = tfds.deprecated.text.SubwordTextEncoder.build_from_corpus
         return token(
                      eng, target_vocab_size=2**15), token(
