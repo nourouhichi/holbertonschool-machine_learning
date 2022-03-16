@@ -15,7 +15,7 @@ if __name__ == '__main__':
             min = i['date_unix']
             upcom = i
     rocket = requests.get('https://api.spacexdata.com/v4/rockets/'
-                        + upcom['rocket'])
+                          + upcom['rocket'])
     rocket = rocket.json()['name']
     lpad = requests.get('https://api.spacexdata.com/v4/launchpads/'
                         + upcom['launchpad'])
@@ -23,4 +23,4 @@ if __name__ == '__main__':
     locale = lpad['locality']
     lpad = lpad['name']
     print('{} ({}) {} - {} ({})'.format(upcom['name'], upcom['date_local'],
-        rocket, lpad, locale))
+          rocket, lpad, locale))
