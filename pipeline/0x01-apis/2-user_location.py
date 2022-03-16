@@ -11,6 +11,6 @@ if __name__ == '__main__':
         print(resp.json()["location"])
     elif resp.status_code == 403:
         x = int(time.time()) - int(resp.headers['X-Ratelimit-Reset'])
-        print('Reset in {} min'.format(x))
+        print('Reset in {} min'.format(abs(x) / 60))
     else:
         print('Not found')
