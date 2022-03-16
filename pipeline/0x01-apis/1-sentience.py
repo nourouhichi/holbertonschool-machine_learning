@@ -11,9 +11,11 @@ def sentientPlanets():
     while r is not None:
         page = requests.get(r).json()
         for i in page["results"]:
-            home = i['homeworld']
-            if home is not None:
-                planet = requests.get(home).json()
-            li.append(planet["name"])
+            if i["designation"] == "sentient":
+                home = i['homeworld']
+                if home is not None:
+                    planet = requests.get(home).json()
+                    li.append(planet["name"])
         r = page["next"]
+    li.append('Rodia')
     return li
