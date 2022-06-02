@@ -1,1 +1,1 @@
-![supervised-machine-learning](https://user-images.githubusercontent.com/60342914/171750826-d711e6c3-14df-47a3-ac9c-7ed745ce2845.png)
+![1_Iz7bCLrPTImnBDOOEyE3LA](https://user-images.githubusercontent.com/60342914/171750988-94146f05-ec28-42a7-a192-fec5069dcdc1.png)
